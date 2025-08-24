@@ -10,19 +10,24 @@ import youtubeRoutes from "./routes/youtube.js"
 
 dotenv.config();
 
+const FRONTEND_URL = process.env.FRONTEND_URL || "https://karaoketube.vercel.app/"
 const SESSION_TIMEOUT = process.env.SESSION_TIMEOUT || 300000
 const app = express()
 
 const server = http.createServer(app);
 const io = new Server(server, {
     cors: {
-        origin: "*",
-        methods: ["GET", "POST"]
+        origin: FRONTEND_URL,
+        methods: ["GET", "POST"],
+        credentials: true
     }
 });
-
 //middleware
-app.use(cors());
+app.use(cors({
+  origin: [FRONTEND_URL],
+  methods: ["GET", "POST"],
+  credentials: true
+}));
 app.use(express.json())
 
 //Routes
