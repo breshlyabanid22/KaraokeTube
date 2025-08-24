@@ -15,6 +15,7 @@ const SESSION_TIMEOUT = process.env.SESSION_TIMEOUT || 300000
 const app = express()
 //middleware
 app.use(cors({
+//   origin: "*",
   origin: [FRONTEND_URL],
   methods: ["GET", "POST"],
   credentials: true
@@ -24,6 +25,7 @@ app.use(express.json())
 const server = http.createServer(app);
 const io = new Server(server, {
     cors: {
+        // origin: "*",
         origin: FRONTEND_URL,
         methods: ["GET", "POST"],
         credentials: true

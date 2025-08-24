@@ -41,8 +41,8 @@ export default function VideoPlayer({ socket, sessionCode}) {
               className="h-full w-full"/>       
         ) : (
             <div className="flex flex-col gap-y-6">
-            <p className="text-center text-lg md:text-3xl font-bold text-white">Session id:  {sessionCode}</p>
-            <p className="text-center text-lg md:text-2xl font-bold text-gray-400">Join the session then select a song</p>
+              <p className="text-center text-lg md:text-3xl font-bold text-white">Session id:  {sessionCode}</p>
+              <p className="text-center text-lg md:text-2xl font-bold text-gray-400">Join the session then select a song</p>
             </div>
         )}
         </div>

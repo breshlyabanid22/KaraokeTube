@@ -38,7 +38,7 @@ export default function Session({ sessionCode, username }) {
         <h2>Select songs</h2>
         <a 
           href="#queue"
-          className="bg-blue-900 text-white font-normal rounded w-22 py-2 text-center text-xs"
+          className="bg-blue-900 text-white font-normal rounded w-22 py-2 text-center text-sm"
           >See queue</a>
       </div>
       <SearchBar onSelect={handleAddSong}/>

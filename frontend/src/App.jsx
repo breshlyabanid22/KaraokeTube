@@ -41,21 +41,21 @@ export default function App() {
 
   return (
     <SongProvider>
-    <div className="h-screen ">
+    <div className="flex justify-center h-screen">
       {!joined ?  (
-        <div className="flex flex-col gap-2 max-w-sm mx-auto align-center justify-center">
-          <h2 className="text-xl font-bold">Host/Join a Session</h2>
+        <div className="flex flex-col gap-3 w-full h-full align-center justify-center px-100 md:w-full bg-slate-700">
+          <h2 className="text-xl font-bold text-center text-white">Host/Join a Session</h2>
           <input
             type="text"
             placeholder="Enter your name"
-            className="border p-2 rounded"
+            className="border p-2 rounded focus:outline-none border-none bg-slate-100"
             value={username}
             onChange={(e) => setUsername(e.target.value)}
           />
           <input
             type="text"
             placeholder="Enter session code"
-            className="border p-2 rounded"
+            className="border p-2 rounded focus:outline-none border-none bg-slate-100"
             value={sessionCode}
             onChange={(e) => setSessionCode(e.target.value)}
             />
@@ -63,8 +63,9 @@ export default function App() {
             className="bg-blue-500 text-white p-2 rounded"
             onClick={handleJoin}
           >
-            Join
+            Create/Join
           </button>
+          <p className="text-center text-sm text-slate-400">@2025 karaokeTube</p>
         </div>  
       ) : (
         <>
@@ -76,7 +77,7 @@ export default function App() {
             </>
             ) : (
             <>
-            <div className="m-6 pb-14">
+            <div className="w-full h-full p-4 m-auto">
               <h2 className="text-2xl font-bold">
                 Lobby: {sessionCode}
               </h2>
