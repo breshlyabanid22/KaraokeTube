@@ -41,9 +41,9 @@ export default function App() {
 
   return (
     <SongProvider>
-    <div className="h-screen">
+    <div className="h-screen ">
       {!joined ?  (
-        <div className="flex flex-col gap-2 max-w-sm mx-auto">
+        <div className="flex flex-col gap-2 max-w-sm mx-auto align-center justify-center">
           <h2 className="text-xl font-bold">Host/Join a Session</h2>
           <input
             type="text"

@@ -13,6 +13,7 @@ dotenv.config();
 const FRONTEND_URL = process.env.FRONTEND_URL || "https://karaoketube.vercel.app"
 const SESSION_TIMEOUT = process.env.SESSION_TIMEOUT || 300000
 const app = express()
+//middleware
 app.use(cors({
   origin: [FRONTEND_URL],
   methods: ["GET", "POST"],
@@ -28,8 +29,7 @@ const io = new Server(server, {
         credentials: true
     }
 });
-//middleware
-
+app.set("trust proxy", 1);
 //Routes
 app.use("/api/session", sessionRoutes);
 app.use("/api/youtube", youtubeRoutes);
@@ -42,10 +42,7 @@ app.get("/health", (_req, res) => {
 
 const MONGO_URI = process.env.MONGO_URI;
 
-mongoose.connect(MONGO_URI, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true
-})
+mongoose.connect(MONGO_URI)
 .then(() => console.log("Connected to mongodb"))
 .catch(err => console.error("Mongodb connection error: ", err));
 
