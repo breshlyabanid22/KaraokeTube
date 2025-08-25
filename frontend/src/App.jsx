@@ -4,12 +4,11 @@ import Session from "./pages/Session.jsx";
 import { Queue } from "./components/Queue.jsx";
 import VideoPlayer from "./components/VideoPlayer.jsx"
 import { SongProvider } from "./components/SongProvider.jsx";
+import { GridLoader } from "react-spinners";
 
 const socket = io(import.meta.env.VITE_API_URL,{
   transports: ["websocket"],
 });
-
-const PRIMARY_COLOR = "#101828";
 
 export default function App() {
   const [username, setUsername] = useState("");
@@ -17,10 +16,13 @@ export default function App() {
   const [joined, setJoined] = useState(false);
   const [users, setUsers] = useState([]);
   const [isHost, setIsHost] = useState(false);
+  const [loading, setLoading] = useState(false);
+
   // Join session
   const handleJoin = () => {
     if (!username || !sessionCode) return;
     socket.emit("joinSession", { sessionCode, username });
+    setLoading(true)
     setJoined(true);
   };
 
@@ -28,6 +30,7 @@ export default function App() {
   useEffect(() => {
     socket.on("userJoined", (users) => {
       setUsers(users);
+      setLoading(false);
     });
     socket.on("hostAssigned", ({host}) => {
       if(socket.id === host){
@@ -44,7 +47,12 @@ export default function App() {
   return (
     <SongProvider>
     <div className="flex justify-center bg-primary">
-      {!joined ?  (
+      {loading ? (
+        <div className="flex flex-col gap-10 justify-center items-center h-screen">
+          <GridLoader color="#FF6900" size={50}/>
+          <p className="text-secondary md:text-lg">Connecting to server. Please wait...</p>
+        </div>
+      ): !joined ?  (
         <div className="flex flex-col gap-3 w-full h-screen align-center justify-center px-4 md:px-100 lg:px-100 md:w-full bg-primary">
           <h2 className="text-xl font-bold text-center text-white">Host/Join a Session</h2>
           <input
