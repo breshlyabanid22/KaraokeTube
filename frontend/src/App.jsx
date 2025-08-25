@@ -9,6 +9,8 @@ const socket = io(import.meta.env.VITE_API_URL,{
   transports: ["websocket"],
 });
 
+const PRIMARY_COLOR = "#101828";
+
 export default function App() {
   const [username, setUsername] = useState("");
   const [sessionCode, setSessionCode] = useState("SESSION_");
@@ -41,9 +43,9 @@ export default function App() {
 
   return (
     <SongProvider>
-    <div className="flex justify-center h-screen">
+    <div className="flex justify-center bg-primary">
       {!joined ?  (
-        <div className="flex flex-col gap-3 w-full h-full align-center justify-center px-100 md:w-full bg-slate-700">
+        <div className="flex flex-col gap-3 w-full h-screen align-center justify-center px-4 md:px-100 lg:px-100 md:w-full bg-primary">
           <h2 className="text-xl font-bold text-center text-white">Host/Join a Session</h2>
           <input
             type="text"
@@ -60,15 +62,15 @@ export default function App() {
             onChange={(e) => setSessionCode(e.target.value)}
             />
           <button
-            className="bg-blue-500 text-white p-2 rounded"
+            className="bg-secondary hover:bg-orange-400 text-white p-2 rounded"
             onClick={handleJoin}
           >
             Create/Join
           </button>
-          <p className="text-center text-sm text-slate-400">@2025 karaokeTube</p>
+          <p className="text-center text-sm text-slate-400">@2025 karaokeTube by @breshlyabanid@gmail.com</p>
         </div>  
       ) : (
-        <>
+        <div className="w-screen text-white md:mx-100">
           {/* Search & Add songs */}  
           {isHost ? (
             <>
@@ -81,27 +83,25 @@ export default function App() {
               <h2 className="text-2xl font-bold">
                 Lobby: {sessionCode}
               </h2>
-              <p className="text-gray-600">You are logged in as {username}</p>
-
-              {/* Users */}
+              <p className="text-secondary text-sm">You are logged in as {username}</p>
               <div>
-                <h3 className="text-lg font-semibold">Users in lobby:</h3>
-                <ul className="flex flex-wrap gap-1">
+                <h3 className="text-md">People in lobby:</h3>
+                <ul className="flex flex-wrap gap-2">
                   {users.map((u, idx) => (
                     <li 
-                      className="text-white bg-gray-500 px-1 rounded inline"
+                      className="text-white mt-2 bg-indigo-700 px-2 rounded inline"
                       key={idx}
                       >{u.username}
                     </li>
                   ))}
                 </ul>
+                <Session sessionCode={sessionCode} username={username}/>
+                <Queue socket={socket} sessionCode={sessionCode}/>
               </div>
-              <Session sessionCode={sessionCode} username={username}/>
-              <Queue socket={socket} sessionCode={sessionCode}/>
              </div>          
             </>
           )}
-        </>
+        </div>
       )}
     </div>
   </SongProvider>

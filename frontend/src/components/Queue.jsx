@@ -61,14 +61,14 @@ export const Queue = ({socket, sessionCode, hideUI}) => {
     }
 
   return (
-    <>
+    <> 
     {isPlaying && !hideUI && (
-      <div className="sticky right-5 top-2 mt-5 mx-auto text-xs md:text-sm bg-orange-500 text-center text-white rounded p-2 ">
-        NOW PLAYING : {currentSong?.title} 
+      <div className="sticky bottom-3 top-2 rounded-full mt-5 mx-auto text-xs md:text-sm bg-indigo-700 text-center text-white p-3 ">
+        NOW PLAYING : {currentSong?.title} - by {currentSong?.addedBy}
       </div>
     )}
     {!hideUI && (
-      <div className="mt-6" id="queue">
+      <div className="mt-6 h-screen" id="queue">
       <h2 className="text-lg font-bold">Queue</h2>  
       {queue.length === 0 ? (
         <p>No songs in queue yet</p>

@@ -1,5 +1,6 @@
 import { useState } from "react";
 import axios from "axios";
+import { GridLoader } from "react-spinners" 
 
 const API_URL = import.meta.env.VITE_API_URL;
 const CHANNELS = [
@@ -39,7 +40,7 @@ export default function SearchBar({ onSelect }) {
         <select
           value={selectedChannel}
           onChange={e => setSelectedChannel(e.target.value)}
-          className="p-2 rounded bg-slate-500 text-white focus:bg-slate-600 focus:outline-none border-none"
+          className="p-2 rounded bg-indigo-700 text-white focus:bg-indigo-900 focus:outline-none border-none"
         >
           {CHANNELS.map(channel => (
             <option 
@@ -54,12 +55,18 @@ export default function SearchBar({ onSelect }) {
           placeholder="Search for songs, artists..."
           value={query}
           onChange={(e) => setQuery(e.target.value)}
-          className="w-full p-2 rounded focus:outline-none border border-zinc-100 bg-zinc-200"
+          className="w-full p-2 rounded focus:outline-none border border-zinc-100 text-primary bg-slate-100"
         />
-        <button type="submit" className="w-full bg-blue-500 rounded text-white py-2 hover:bg-blue-400">Search Songs</button>
+        <button type="submit" className="w-full bg-secondary rounded text-white py-2 hover:bg-blue-400">
+          Search
+        </button>
       </form>
-
-      {loading && <p>Loading...</p>}
+      
+      <div className="flex items-center justify-center">
+        {
+          <GridLoader color="#FF6900" loading={loading}  />
+        }
+      </div>
 
       <ul className="flex flex-col gap-3 text-sm md:text-base">
         {results.map((video, idx) => (
@@ -70,7 +77,7 @@ export default function SearchBar({ onSelect }) {
               <small>{video.channel}</small>
               <button 
                 onClick={() => onSelect(video)}
-                className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded "
+                className="bg-secondary hover:bg-orange-400 text-white font-bold py-3 px-4 rounded "
                 >Add to Queue</button>
             </div>
           </li>

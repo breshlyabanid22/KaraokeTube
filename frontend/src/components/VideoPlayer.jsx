@@ -24,7 +24,7 @@ export default function VideoPlayer({ socket, sessionCode}) {
   }
 
   return (
-    <div className="w-full h-full bg-gray-900">
+    <div className="w-screen h-screen bg-gray-900 ">
         <div ref={containerRef} className="flex w-full h-full items-center justify-center">
           <span className="absolute block bg-orange-500 text-white top-10 right-5 px-4 py-2 rounded text-sm md:text-lg">Session id: {sessionCode}</span>
           <button

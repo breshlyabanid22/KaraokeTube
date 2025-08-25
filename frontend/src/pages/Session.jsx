@@ -30,18 +30,18 @@ export default function Session({ sessionCode, username }) {
   };
 
   return (
-    <div>
+    <>
       {success && ( 
         <span className="sticky block top-2 mt-5 mx-auto w-full bg-green-500 text-center text-white rounded p-2 ">Song has been added!</span>
       )}
       <div className="flex justify-between font-bold mb-4">
-        <h2>Select songs</h2>
+        <div></div>
         <a 
           href="#queue"
-          className="bg-blue-900 text-white font-normal rounded w-22 py-2 text-center text-sm"
+          className="bg-blue-800 text-white font-normal rounded w-22 py-2 text-center text-sm"
           >See queue</a>
       </div>
       <SearchBar onSelect={handleAddSong}/>
-    </div>
+    </>
   );
 }

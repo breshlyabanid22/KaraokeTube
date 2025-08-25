@@ -15,7 +15,6 @@ const SESSION_TIMEOUT = process.env.SESSION_TIMEOUT || 300000
 const app = express()
 //middleware
 app.use(cors({
-//   origin: "*",
   origin: [FRONTEND_URL],
   methods: ["GET", "POST"],
   credentials: true
@@ -25,7 +24,6 @@ app.use(express.json())
 const server = http.createServer(app);
 const io = new Server(server, {
     cors: {
-        // origin: "*",
         origin: FRONTEND_URL,
         methods: ["GET", "POST"],
         credentials: true
@@ -94,6 +92,7 @@ io.on("connection", (socket) => {
             await session.save();
             io.to(sessionCode).emit("userLeft", { socketId: socket.id });
             io.to(sessionCode).emit("hostAssigned", { host: session.host });
+            io.to(sessionCode).emit("userJoined", session.users);
             console.log(`${username} left session ${sessionCode}`);
       }
     });
@@ -103,6 +102,9 @@ io.on("connection", (socket) => {
 
         cancelSessionCleanup(sessionCode);
         socket.join(sessionCode)
+        
+        socket.data.sessionCode = sessionCode;
+        socket.data.username = username;
 
         let session = await Session.findOne({sessionCode});
         if(!session){
