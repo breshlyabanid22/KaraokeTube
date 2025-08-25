@@ -58,11 +58,12 @@ export const Queue = ({socket, sessionCode, hideUI}) => {
       setCurrentSong(song);
       setIsPlaying(true);
       socket.emit("playVideo", {sessionCode, videoId});
+      socket.emit("nextSong", {sessionCode, videoId});
     }
 
   return (
     <> 
-    {isPlaying && !hideUI && (
+    {currentSong && !hideUI && (
       <div className="sticky bottom-3 top-2 rounded-full mt-5 mx-auto text-xs md:text-sm bg-indigo-700 text-center text-white p-3 ">
         NOW PLAYING : {currentSong?.title} - by {currentSong?.addedBy}
       </div>
@@ -75,13 +76,16 @@ export const Queue = ({socket, sessionCode, hideUI}) => {
       ) : (
         <ul className="space-y-2">
           {queue.map((song, idx) => (
-            <li key={idx} className="border p-2 rounded">
+            <>
+            <li key={idx} className="flex flex-col gap-1 justify-between border p-2 rounded text-xs overflow-hidden text-ellipsis">
               🎵 {song.title} <span className="text-sm text-gray-500">(added by {song.addedBy})</span>
               <button 
               onClick={() => handlePlay(song.videoId, song.title)}
-              className="ml-8 bg-red-500 text-white px-4 py-1 rounded hover:bg-red-400"
-              >Play</button>
+              className="bg-red-500 text-white px-4 py-2 min-w-10 rounded hover:bg-red-400"
+              >Play Now
+              </button>
             </li>
+            </>
           ))}
         </ul>
       )}

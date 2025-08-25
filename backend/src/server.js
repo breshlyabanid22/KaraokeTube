@@ -163,13 +163,20 @@ io.on("connection", (socket) => {
   })
 
   //Play next song when current finishes
-  socket.on("nextSong", async ({sessionCode}) => {
+  socket.on("nextSong", async ({sessionCode, videoId}) => {
     try {
         const session = await Session.findOne({sessionCode});
         if (!session || session.queue.length === 0) return;
         
-        //Remove first song
-        const playedSong = session.queue.shift();
+        //Find and remove the song with the given videoId
+        const songIndex = session.queue.findIndex(song => song.videoId === videoId);
+        let playedSong = null
+        if(songIndex !== -1){
+            playedSong = session.queue.splice(songIndex, 1)[0];
+        }else{
+            playedSong = session.queue.shift();
+        }
+        
         const nextSong = session.queue[0] || null
         await session.save();
 

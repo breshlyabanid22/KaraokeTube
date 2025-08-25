@@ -77,7 +77,7 @@ export default function SearchBar({ onSelect }) {
               <small>{video.channel}</small>
               <button 
                 onClick={() => onSelect(video)}
-                className="bg-secondary hover:bg-orange-400 text-white font-bold py-3 px-4 rounded "
+                className="bg-secondary ring ring-orange-700 hover:bg-orange-400 focus:ring-orange-600 text-white font-bold py-3 px-4 rounded "
                 >Add to Queue</button>
             </div>
           </li>
