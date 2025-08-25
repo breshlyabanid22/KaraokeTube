@@ -5,7 +5,8 @@ import { Queue } from "./components/Queue.jsx";
 import VideoPlayer from "./components/VideoPlayer.jsx"
 import { SongProvider } from "./components/SongProvider.jsx";
 import { GridLoader } from "react-spinners";
-
+import { bigLogo1 } from "./logo.js"
+import { smallLogo } from "./logo.js";
 const socket = io(import.meta.env.VITE_API_URL,{
   transports: ["websocket"],
 });
@@ -54,6 +55,7 @@ export default function App() {
         </div>
       ): !joined ?  (
         <div className="flex flex-col gap-3 w-full h-screen align-center justify-center px-4 md:px-100 lg:px-100 md:w-full bg-primary">
+          <img className="absolute left-1/2 -translate-x-1/2 top-8 max-w-48 md:max-w-92" src={bigLogo1} alt="logo"/>
           <h2 className="text-xl font-bold text-center text-white">Host/Join a Session</h2>
           <input
             type="text"
@@ -88,6 +90,7 @@ export default function App() {
             ) : (
             <>
             <div className="w-full h-full p-4 m-auto">
+              <img src={smallLogo} alt="small-logo" className="max-w-42 mx-auto mb-4" />
               <h2 className="text-2xl font-bold">
                 Lobby: {sessionCode}
               </h2>
